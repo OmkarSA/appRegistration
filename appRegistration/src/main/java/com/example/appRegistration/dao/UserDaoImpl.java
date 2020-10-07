@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User getUser(String id) {
 		// TODO Auto-generated method stub
-		String query = "select * from users where id = " + id;
+		String query = "select * from users where id = '" + id + "'";
 
 		List<User> user = jdbcTemplate.query(query, new RowMapper<User>() {
 
@@ -95,6 +95,14 @@ public class UserDaoImpl implements UserDao {
 			return "User added and it's id is " + user1.get(0).getId();
 		else
 			return "User not added";
+	}
+
+	@Override
+	public String removeUser(String id) {
+		// TODO Auto-generated method stub
+		String query = "delete from users where id = '" + id + "'";
+		jdbcTemplate.update(query);
+		return "User removed from system";
 	}
 
 }

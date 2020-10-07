@@ -11,4 +11,6 @@ public interface UserDao {
 	User getUser(String id);
 
 	String addUser(User user);
+	
+	String removeUser(String id);
 }
