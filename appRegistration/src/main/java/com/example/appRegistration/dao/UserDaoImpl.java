@@ -73,11 +73,25 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub
 		String query = "insert into users(first_name, last_name, email, phone) values(?,?,?,?)";
 
-		int count = jdbcTemplate.update(query,
+		jdbcTemplate.update(query,
 				new Object[] { user.getFirstName(), user.getLastName(), user.getEmail(), user.getNumber() });
-		
-		if(count == 1)
-			return "User added";
+
+		String query1 = "select * from users where first_name=" + user.getFirstName() + " and last_name="
+				+ user.getLastName() + " and email=" + user.getEmail();
+
+		List<User> user1 = jdbcTemplate.query(query1, new RowMapper<User>() {
+			@Override
+			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+				// TODO Auto-generated method stub
+				User user = new User();
+				user.setId(rs.getString("id"));
+				return user;
+			}
+
+		});
+
+		if (user1.size() > 0)
+			return "User added and it's id is " + user1.get(0).getId();
 		else
 			return "User not added";
 	}
