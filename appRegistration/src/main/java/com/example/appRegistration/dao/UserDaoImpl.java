@@ -76,16 +76,17 @@ public class UserDaoImpl implements UserDao {
 		jdbcTemplate.update(query,
 				new Object[] { user.getFirstName(), user.getLastName(), user.getEmail(), user.getNumber() });
 
-		String query1 = "select * from users where first_name=" + user.getFirstName() + " and last_name="
-				+ user.getLastName() + " and email=" + user.getEmail();
+		String query1 = "select * from users where first_name='" + user.getFirstName() + "' and last_name='"
+				+ user.getLastName() + "' and email='" + user.getEmail() + "'";
 
 		List<User> user1 = jdbcTemplate.query(query1, new RowMapper<User>() {
+
 			@Override
 			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 				// TODO Auto-generated method stub
-				User user = new User();
-				user.setId(rs.getString("id"));
-				return user;
+				User user2 = new User();
+				user2.setId(rs.getString("id"));
+				return user2;
 			}
 
 		});
